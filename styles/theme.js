@@ -23,6 +23,11 @@ const theme = createMuiTheme({
       root: {
         fontFamily: '"Alata", sans-serif'
       }
+    },
+    MuiTypography: {
+      body1: {
+        fontFamily: '"Alata", sans-serif'
+      }
     }
   },
   palette: {
