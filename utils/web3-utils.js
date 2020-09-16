@@ -1,3 +1,5 @@
+import { ethers } from 'ethers'
+
 const ADDRESS_REGEX = /^0x[0-9a-fA-F]{40}$/
 
 export const isAddress = address => {
@@ -26,4 +28,17 @@ export const getNetworkName = chainId => {
   if (chainId === '4') return 'Rinkeby'
 
   return 'Unknown'
+}
+
+export const bigNum = value => {
+  return new ethers.BigNumber.from(value)
+}
+
+export const parseUnits = (value, { digits = 18 } = {}) => {
+  value = value.replace(/,/g, '').trim()
+  try {
+    return ethers.utils.parseUnits(value || '0', digits)
+  } catch (err) {
+    return bigNum(-1)
+  }
 }

@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 import NavBar from '../components/NavBar'
+import StakeModule from '../components/StakeModule'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +20,7 @@ const App = props => {
   return (
     <div className={classes.root}>
       <NavBar logoMode={'clt'} />
+      <StakeModule />
     </div>
   )
 }
