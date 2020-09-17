@@ -76,6 +76,7 @@ const Reward = () => {
   const miningPool = useMiningPool()
   const { loading: loadingStakedRate, staked, stakedUni, stakedRate } = useStakingRate(account)
   const [disabled, setDisable] = useState(true)
+  const [rewardAmount, setRewardAmount] = useState(0)
   const [todayReward, setTodayReward] = useState(bigNum(-1))
   const [userReward, setUserReward] = useState(bigNum(-1))
   const [today, setToday] = useState(`${moment.utc().format('MM-DD-YYYY')} 12:00 GMT+0`)
@@ -150,7 +151,7 @@ const Reward = () => {
                   {`Your amount of CLT rewarded`}
                 </span>
                 <span className={classes.amountValue}>
-                  {`${todayReward.toLocaleString()} CLT`}
+                  {`${rewardAmount} CLT`}
                 </span>
               </div>
             ) : null}

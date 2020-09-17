@@ -56,7 +56,7 @@ const Withdraw = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(false)
   const { loading: loadingStaked, staked } = useUniStaked(account)
   const withdraw = useWithdraw()
 
