@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import NavBar from '../components/NavBar'
 import StakeModule from '../components/StakeModule'
+import Screen from '../components/Screen'
 import Background from '../assets/sub-bg.jpg'
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +22,7 @@ const App = props => {
 
   return (
     <div className={classes.root}>
+      <Screen />
       <NavBar logoMode={'clt'} />
       <StakeModule />
     </div>
