@@ -4,6 +4,7 @@ import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import Card from '@material-ui/core/Card'
+import moment from 'moment'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
 import { useBalanceOf, useUniStaked, useStake } from '../lib/Contracts'
@@ -159,7 +160,7 @@ const Stake = () => {
 
   return (
     <div>
-      <Alert severity="info">Learn how to obtain UNI-V2 to participate in the rewards program</Alert>
+      <Alert severity="info">Stacked UNI-V2 can be withdrawn after {`${moment.utc([2020, 9, 8, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}</Alert>
       <Stats
         balanceUni={selectedTokenBalance}
         decimalsUni={18}

@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import Card from '@material-ui/core/Card'
+import moment from 'moment'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
 import { useBalanceOf, useUniStaked, useWithdraw } from '../lib/Contracts'
@@ -55,7 +56,7 @@ const Withdraw = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const { loading: loadingStaked, staked } = useUniStaked(account)
   const withdraw = useWithdraw()
 
@@ -71,9 +72,18 @@ const Withdraw = () => {
     }
   }, [withdraw])
 
+  useEffect(() => {
+    const now = moment.utc()
+    const endDate = moment.utc([2020, 9, 8, 12])
+
+    if (now > endDate) {
+      setDisable(false)
+    }
+  })
+
   return (
     <div>
-      <Alert severity="info">Withdraw all of your staked UNI-V2 and claim any pending rewards</Alert>
+      <Alert severity="info">Stacked UNI-V2 can be withdrawn after {`${moment.utc([2020, 9, 8, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}</Alert>
       <Stats
         balanceUni={selectedTokenBalance}
         decimalsUni={18}
