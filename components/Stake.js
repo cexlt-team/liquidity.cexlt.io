@@ -3,14 +3,17 @@ import { ethers } from 'ethers'
 import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
+import AlertTitle from '@material-ui/lab/AlertTitle'
 import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
 import moment from 'moment'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
-import { useBalanceOf, useUniStaked, useStake } from '../lib/Contracts'
+import { useBalanceOf, useUniStaked, useApprove, useStake } from '../lib/Contracts'
 import Stats from './Stats'
 import Input from './Input'
 import Logo from './Logo'
+import Loader from './Loader'
 import { bigNum, parseUnits } from '../utils/web3-utils'
 
 const useStyles = makeStyles(theme => ({
@@ -32,24 +35,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 12
   },
   action: {
-    position: 'relative',
-    border: 0,
-    borderRadius: 8,
-    padding: 0,
-    width: '100%',
-    height: 48,
-    cursor: 'pointer',
-    '&:active': {
-      top: 1
-    },
-    background: 'linear-gradient(342.22deg, #01e8f7 -5.08%, #00c2ff 81.4%)',
-    color: '#fff',
-    mixBlendMode: 'normal',
-    boxShadow: '0px 2px 2px rgba(87, 95, 119, 0.15)',
-    borderRadius: 6,
-    fontSize: '18px',
-    textTransform: 'uppercase',
-    fontWeight: 'bold'
+    marginTop: 30
+  },
+  marginTop: {
+    marginTop: theme.spacing(4)
   }
 }))
 
@@ -112,8 +101,16 @@ const Stake = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
+  const [inputDisabled, setInputDisabled] = useState(false)
   const [disabled, setDisabled] = useState(false)
+  const [step, setStep] = useState('approve')
+  const [pending, setPending] = useState(false)
+  const [approveTx, setApproveTx] = useState('')
+  const [stakeTx, setStakeTx] = useState('')
+  const [showApprove, setShowApprove] = useState(false)
+  const [showStake, setShowStake] = useState(false)
   const { loading: loadingStaked, staked } = useUniStaked(account)
+  const approve = useApprove()
   const stake = useStake()
 
   const {
@@ -137,18 +134,41 @@ const Stake = () => {
     setInputValue(newInputValue)
   }, [selectedTokenBalance, setAmountUni, setInputValue])
 
-  const handleSubmit = useCallback(async () => {
-    try {
-      setDisabled(true)
+  const handleSubmit = async () => {
+    setDisabled(true)
+    setInputDisabled(true)
+    setPending(true)
 
-      await stake(amount)
+    try {
+      if (step === 'approve') {
+        const approveResult = await approve(amount)
+        await approveResult.wait(1)
+        if (approveResult) {
+          console.log()
+          setApproveTx(approveResult.hash)
+          setShowApprove(true)
+          setPending(false)
+          setStep('stake')
+          setDisabled(false)
+        }
+      }
+
+      if (step === 'stake') {
+        const stakeResult = await stake(amount)
+        await stakeResult.wait(1)
+        if (stakeResult) {
+          setStakeTx(stakeResult.hash)
+          setShowStake(true)
+          setPending(false)
+        }
+      }
     } catch (error) {
-      throw new Error(error.message)
-    } finally {
+      setStep('approve')
       setDisabled(false)
+      setInputDisabled(false)
       resetInputs()
     }
-  }, [amount, resetInputs, stake])
+  }
 
   const inputError = useMemo(
     () =>
@@ -158,15 +178,29 @@ const Stake = () => {
     [amount, disabled, selectedTokenBalance]
   )
 
+  const handleRefresh = () => {
+    setApproveTx('')
+    setShowApprove(false)
+    setStakeTx('')
+    setShowStake(false)
+    setStep('approve')
+    setDisabled(false)
+    setInputDisabled(false)
+    resetInputs()
+  }
+
   return (
     <div>
+      {pending && (
+        <Loader />
+      )}
       <Alert severity="info">Stacked UNI-V2 can be withdrawn after {`${moment.utc([2020, 9, 8, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}</Alert>
       <Stats
         balanceUni={selectedTokenBalance}
         decimalsUni={18}
       />
       <Input
-        disabled={status !== 'connected' || disabled}
+        disabled={status !== 'connected' || inputDisabled}
         inputValue={inputValue}
         onChange={handleSetInputValue}
         onMax={handleMax}
@@ -193,19 +227,44 @@ const Stake = () => {
       {status !== 'connected' ? (
         <Alert severity="warning">Please, connect your wallet to get started.</Alert>
       ) : (
-        <button
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={disabled || inputError}
           onClick={disabled ? undefined : handleSubmit}
           className={classes.action}
-          css={`
-            margin-top: 60px;
-            ${disabled ||
-              (inputError && 'background: #F6F9FC; color: #8398AC; cursor: default; &:active { top: 0px; }')
-            }
-          `}
+          fullWidth
         >
-          Stake
-        </button>
+          {step === 'approve' ? 'Approve' : 'Stake'}
+        </Button>
+      )}
+      {showApprove && (
+        <div>
+          <div className={classes.marginTop}>
+            <Alert severity="success">
+              <AlertTitle>Approve Transaction</AlertTitle>
+              <a href={`https://ropsten.etherscan.io/tx/${approveTx}`} target="_blank" rel="noopener noreferrer">
+                {approveTx}
+              </a>
+            </Alert>
+          </div>
+        </div>
+      )}
+      {showStake && (
+        <div>
+          <div className={classes.marginTop}>
+            <Alert severity="success">
+              <AlertTitle>Staking Transaction</AlertTitle>
+              <a href={`https://ropsten.etherscan.io/tx/${stakeTx}`} target="_blank" rel="noopener noreferrer">
+                {stakeTx}
+              </a>
+            </Alert>
+          </div>
+          <div className={classes.marginTop}>
+            <Button variant="contained" color="secondary" fullWidth onClick={handleRefresh}>Refresh</Button>
+          </div>
+        </div>
       )}
     </div>
   )

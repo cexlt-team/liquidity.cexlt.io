@@ -3,6 +3,7 @@ import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import Card from '@material-ui/core/Card'
+import Button from '@material-ui/core/Button'
 import moment from 'moment'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
@@ -31,24 +32,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 24
   },
   action: {
-    position: 'relative',
-    border: 0,
-    borderRadius: 8,
-    padding: 0,
-    width: '100%',
-    height: 48,
-    cursor: 'pointer',
-    '&:active': {
-      top: 1
-    },
-    background: 'linear-gradient(342.22deg, #01e8f7 -5.08%, #00c2ff 81.4%)',
-    color: '#fff',
-    mixBlendMode: 'normal',
-    boxShadow: '0px 2px 2px rgba(87, 95, 119, 0.15)',
-    borderRadius: 6,
-    fontSize: '18px',
-    textTransform: 'uppercase',
-    fontWeight: 'bold'
+    marginTop: 30
   }
 }))
 
@@ -109,16 +93,17 @@ const Withdraw = () => {
       {status !== 'connected' ? (
         <Alert severity="warning">Please, connect your wallet to get started.</Alert>
       ) : (
-        <button
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
           disabled={disabled}
           onClick={disabled ? undefined : handleSubmit}
           className={classes.action}
-          css={`
-            margin-top: 60px;
-          `}
+          fullWidth
         >
           Withdraw
-        </button>
+        </Button>
       )}
     </div>
   )
