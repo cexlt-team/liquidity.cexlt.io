@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import NavBar from '../components/NavBar'
 import StakeModule from '../components/StakeModule'
+import Background from '../assets/sub-bg.jpg'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -10,7 +11,8 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    background: `url(${Background})`
   }
 }))
 
