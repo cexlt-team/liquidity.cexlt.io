@@ -243,7 +243,7 @@ const Stake = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Approve Transaction</AlertTitle>
-              <a href={`https://ropsten.etherscan.io/tx/${approveTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://rinkeby.etherscan.io/tx/${approveTx}`} target="_blank" rel="noopener noreferrer">
                 {approveTx}
               </a>
             </Alert>
@@ -255,7 +255,7 @@ const Stake = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Staking Transaction</AlertTitle>
-              <a href={`https://ropsten.etherscan.io/tx/${stakeTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://rinkeby.etherscan.io/tx/${stakeTx}`} target="_blank" rel="noopener noreferrer">
                 {stakeTx}
               </a>
             </Alert>

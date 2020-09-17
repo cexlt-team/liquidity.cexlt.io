@@ -135,7 +135,7 @@ const Withdraw = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Staking Transaction</AlertTitle>
-              <a href={`https://ropsten.etherscan.io/tx/${withdrawTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://rinkeby.etherscan.io/tx/${withdrawTx}`} target="_blank" rel="noopener noreferrer">
                 {withdrawTx}
               </a>
             </Alert>
