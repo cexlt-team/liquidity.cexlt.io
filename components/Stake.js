@@ -144,7 +144,6 @@ const Stake = () => {
         const approveResult = await approve(amount)
         await approveResult.wait(1)
         if (approveResult) {
-          console.log()
           setApproveTx(approveResult.hash)
           setShowApprove(true)
           setPending(false)
