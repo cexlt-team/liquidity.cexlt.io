@@ -51,7 +51,9 @@ const useStyles = makeStyles(theme => ({
   },
   connectedContainer: {
     display: 'flex',
-    height: 40
+    height: 40,
+    backgroundColor: '#fff',
+    borderRadius: 4
   },
   connectedButton: {
     display: 'flex',
