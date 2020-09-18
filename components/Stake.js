@@ -126,6 +126,15 @@ const Stake = () => {
     resetInputs()
   }, [status, resetInputs])
 
+  useEffect(() => {
+    const now = moment.utc()
+    const endDate = moment.utc([2020, 9, 8, 12])
+
+    if (now > endDate) {
+      setInputDisabled(true)
+    }
+  })
+
   const handleMax = useCallback(() => {
     const newInputValue = ethers.utils.formatEther(
       selectedTokenBalance.toString()
@@ -243,7 +252,7 @@ const Stake = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Approve Transaction</AlertTitle>
-              <a href={`https://rinkeby.etherscan.io/tx/${approveTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://etherscan.io/tx/${approveTx}`} target="_blank" rel="noopener noreferrer">
                 {approveTx}
               </a>
             </Alert>
@@ -255,7 +264,7 @@ const Stake = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Staking Transaction</AlertTitle>
-              <a href={`https://rinkeby.etherscan.io/tx/${stakeTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://etherscan.io/tx/${stakeTx}`} target="_blank" rel="noopener noreferrer">
                 {stakeTx}
               </a>
             </Alert>

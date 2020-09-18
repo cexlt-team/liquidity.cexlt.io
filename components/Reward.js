@@ -3,7 +3,7 @@ import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import Card from '@material-ui/core/Card'
-import moment from 'moment'
+import moment, { utc } from 'moment'
 import { ethers } from 'ethers'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Reward = () => {
+const Reward = props => {
   const { account, status } = useWalletAugmented()
   const classes = useStyles()
   const miningPool = useMiningPool()
@@ -88,6 +88,11 @@ const Reward = () => {
     
     if (now < startDate) {
       setToday(`${startDate.format('MM-DD-YYYY')} 12:00 GMT+0`)
+    } else {
+      if (now.hour() > 12) {
+        const nextday = `${moment().utc().add(1, 'day').format('MM-DD-YYYY')} 12:00 GMT+0`
+        setToday(nextday)
+      }
     }
 
     if (now > endDate) {
@@ -107,6 +112,35 @@ const Reward = () => {
         const rewardFixed = reward.toLocaleString('en', {'minimumFractionDigits':0, 'maximumFractionDigits':18})
         setUserReward(rewardFixed)
       }
+    }
+  })
+
+  useEffect(() => {
+    const getReward = async () => {
+      const url = 'http://localhost:3000/api/reward'
+      const data = { address: account }
+      try {
+        const rewardApi = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        })
+
+        const result = await rewardApi.json()
+        const rewardAmount = result.data
+        const rewardAmountFixed = rewardAmount.toLocaleString('en', {'minimumFractionDigits':0, 'maximumFractionDigits':18})
+
+        setRewardAmount(rewardAmountFixed)
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    if (status === 'connected') {
+      getReward()
     }
   })
   

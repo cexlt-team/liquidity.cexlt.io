@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 
 import NavBar from '../components/NavBar'
 import StakeModule from '../components/StakeModule'
@@ -19,10 +21,20 @@ const useStyles = makeStyles(theme => ({
 
 const App = props => {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const now = moment.utc()
+    const startDate = moment.utc([2020, 8, 18, 12])
+
+    if (now >= startDate) {
+      setOpen(true)
+    }
+  })
 
   return (
     <div className={classes.root}>
-      <Screen />
+      {!open && (<Screen />)}
       <NavBar logoMode={'clt'} />
       <StakeModule />
     </div>

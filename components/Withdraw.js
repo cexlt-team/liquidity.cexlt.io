@@ -45,7 +45,7 @@ const Withdraw = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [pending, setPending] = useState(false)
   const [withdrawTx, setWithdrawTx] = useState('')
   const [showWithdraw, setShowWithdraw] = useState(false)
@@ -135,7 +135,7 @@ const Withdraw = () => {
           <div className={classes.marginTop}>
             <Alert severity="success">
               <AlertTitle>Staking Transaction</AlertTitle>
-              <a href={`https://rinkeby.etherscan.io/tx/${withdrawTx}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://etherscan.io/tx/${withdrawTx}`} target="_blank" rel="noopener noreferrer">
                 {withdrawTx}
               </a>
             </Alert>
