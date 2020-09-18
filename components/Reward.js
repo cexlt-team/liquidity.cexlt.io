@@ -117,7 +117,7 @@ const Reward = props => {
 
   useEffect(() => {
     const getReward = async () => {
-      const url = 'http://localhost:3000/api/reward'
+      const url = 'https://liquidity.cexlt.io/api/reward'
       const data = { address: account }
       try {
         const rewardApi = await fetch(url, {
