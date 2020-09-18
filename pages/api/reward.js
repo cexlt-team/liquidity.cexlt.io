@@ -1,6 +1,15 @@
+import Cors from 'cors'
+import initMiddleware from '../../lib/init-middleware'
 import { Reward } from '../../db/models'
 
+const cors = initMiddleware(
+  Cors({
+    methods: ['GET', 'POST'],
+  })
+)
+
 export default async (req, res) => {
+  await cors(req, res)
   const { method, body } = req
 
   switch (method) {

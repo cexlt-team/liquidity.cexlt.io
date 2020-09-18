@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "clsx": "^1.1.1",
+    "cors": "^2.8.5",
     "ethers": "^5.0.12",
     "material-ui-popup-state": "^1.6.1",
     "moment": "^2.28.0",
