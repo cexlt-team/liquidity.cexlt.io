@@ -44,7 +44,7 @@ const NavBar = props => {
           <Logo mode={logoMode} />
         </a>
         <a href="https://uniswap.info/pair/0x0f1b7d5e235098e9da4ae78199021d7938c77ae6" target="_blank" className={classes.homeLink}>
-          Trade
+          Trade for Liquidity Pool
         </a>
       </div>
       <AccountButton />
