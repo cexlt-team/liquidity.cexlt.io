@@ -17,6 +17,18 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '16px 40px 0 40px'
+  },
+  leftSide: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  homeLink: {
+    marginLeft: theme.spacing(10),
+    fontSize: 18,
+    color: '#fff',
+    textTransform: 'uppercase',
+    textDecoration: 'none'
   }
 }))
 
@@ -27,7 +39,14 @@ const NavBar = props => {
 
   return (
     <div className={classes.root}>
-      <Logo mode={logoMode} />
+      <div className={classes.leftSide}>
+        <a href="https://cexlt.io" target="_blank">
+          <Logo mode={logoMode} />
+        </a>
+        <a href="https://uniswap.info/pair/0x0f1b7d5e235098e9da4ae78199021d7938c77ae6" target="_blank" className={classes.homeLink}>
+          Trade
+        </a>
+      </div>
       <AccountButton />
     </div>
   )
