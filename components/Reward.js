@@ -133,8 +133,8 @@ const Reward = props => {
         })
 
         const result = await rewardApi.json()
-        const rewardAmount = result.data
-        const rewardAmountFixed = rewardAmount.toLocaleString('en', {'minimumFractionDigits':0, 'maximumFractionDigits':18})
+        const rewardAmountValue = result.data
+        const rewardAmountFixed = rewardAmountValue.toLocaleString('en', {'minimumFractionDigits':0, 'maximumFractionDigits':18})
 
         setRewardAmount(rewardAmountFixed)
       } catch (error) {

@@ -20,7 +20,7 @@ const sequelize = new Sequelize(config)
 export default async (req, res) => {
   await cors(req, res)
   const { method, body } = req
-  console.log(method)
+  console.log(body)
 
   switch (method) {
     case 'GET':
@@ -36,7 +36,8 @@ export default async (req, res) => {
       res.status(200).json({ data: { count: getResult.length, row: getResult }})
       break
     case 'POST':
-      const result = await Reward.findAllCount('reward', { where: { address: body.address }})
+      const result = await Reward.sum('reward', { where: { address: body.address }})
+      console.log(result)
       res.status(200).json({ data: result })
       break
     default:
