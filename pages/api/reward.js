@@ -1,4 +1,11 @@
 import Cors from 'cors'
+import { Sequelize } from 'sequelize'
+
+import Config from '../../db/config'
+
+const env = process.env.NODE_ENV || 'development'
+const config = Config[env]
+
 import initMiddleware from '../../lib/init-middleware'
 import { Reward } from '../../db/models'
 
@@ -8,16 +15,28 @@ const cors = initMiddleware(
   })
 )
 
+const sequelize = new Sequelize(config)
+
 export default async (req, res) => {
   await cors(req, res)
   const { method, body } = req
+  console.log(method)
 
   switch (method) {
     case 'GET':
-      res.status(200).json({ success: 'This is reward query api' })
+      const getResult = await Reward.findAll({
+        attributes: [
+          'id',
+          'address',
+          [sequelize.fn('SUM', sequelize.col('reward')), 'reward_sum']
+        ],
+        group: 'address',
+        raw: true
+      })
+      res.status(200).json({ data: { count: getResult.length, row: getResult }})
       break
     case 'POST':
-      const result = await Reward.sum('reward', { where: { address: body.address }})
+      const result = await Reward.findAllCount('reward', { where: { address: body.address }})
       res.status(200).json({ data: result })
       break
     default:

@@ -3,7 +3,7 @@ import TokenAmount from 'token-amount'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import Card from '@material-ui/core/Card'
-import moment, { utc } from 'moment'
+import moment from 'moment'
 import { ethers } from 'ethers'
 
 import { useWalletAugmented } from '../lib/WalletProvider'
@@ -67,6 +67,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     textTransform: 'uppercase',
     fontWeight: 'bold'
+  },
+  marginTop: {
+    marginTop: theme.spacing(2)
   }
 }))
 
@@ -147,6 +150,11 @@ const Reward = props => {
   return (
     <div>
       <Alert severity="info">Claim all of your rewards from your staked UNI-V2</Alert>
+      {status === 'connected' && (
+        <Alert severity="info" className={classes.marginTop}>
+          Rewards paid until 12:00 GMT+0 in 10-09-2020. Your amount of CLT reward will be deducted by 1%
+        </Alert>
+      )}
       <div>
         {status === 'connected' && (
           <div className={classes.dateNotice}>
