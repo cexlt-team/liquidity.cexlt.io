@@ -23,6 +23,20 @@ const columns = [
   }
 ]
 
+const parseAddresses = json => {
+  return new Promise((res, rej) => {
+    json.forEach((account, index) => {
+      if (Object.keys(aacount).length === 0) {
+        rej({ message: `There was an error parsing ${JSON.stringify(account)} at line ${index}` })
+      }
+
+      const address = Object.keys(account)[0].replace(/\s/g, '')
+
+                      
+    })
+  })
+}
+
 const Transfer = () => {
   const [showApprove, setShowApprove] = useState(false)
   const [showStake, setShowStake] = useState(false)
@@ -37,7 +51,22 @@ const Transfer = () => {
 
     try {
       if (step === 'approve') {
-        
+        let dataString = ''
+        rewardData.map((item, index) => {
+          if (index === 0) {
+            dataString += '['
+          }
+
+          dataString += `{ "${item.address}":"${Number(item.reward_sum)}" }`
+          if (index < rewardData.length - 1) {
+            dataString += ','
+          } else {
+            dataString += ']'
+          }
+        })
+        console.log(dataString)
+        const dataJson = JSON.parse(dataString)
+        console.log(dataJson) 
       }
 
       if (step === 'transfer') {

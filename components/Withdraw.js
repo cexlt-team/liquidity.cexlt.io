@@ -45,7 +45,7 @@ const Withdraw = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
-  const [disabled, setDisabled] = useState(true)
+  const [disabled, setDisabled] = useState(false)
   const [pending, setPending] = useState(false)
   const [withdrawTx, setWithdrawTx] = useState('')
   const [showWithdraw, setShowWithdraw] = useState(false)
@@ -53,7 +53,7 @@ const Withdraw = () => {
   const withdraw = useWithdraw()
 
   const handleSubmit = async () => {
-    setDisabled(true)
+    setDisabled(false)
     setPending(true)
 
     try {
@@ -71,15 +71,6 @@ const Withdraw = () => {
       setDisabled(false)
     }
   }
-
-  useEffect(() => {
-    const now = moment.utc()
-    const endDate = moment.utc([2020, 9, 8, 12])
-
-    if (now > endDate) {
-      setDisable(false)
-    }
-  })
 
   const handleRefresh = () => {
     setWithdrawTx('')

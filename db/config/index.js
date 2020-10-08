@@ -2,25 +2,15 @@
 
 module.exports = {
   development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-    operatorAliases: false
-  },
-  test: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    dialect: 'mysql'
+    accessKeyId: process.env.S3_ACCESS_ID,
+    secretAccessKey: process.env.S3_SECRET_KEY,
+    region: process.env.S3_REGION,
+    apiVersion: process.env.S3_VERSION
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    dialect: 'mysql'
+    accessKeyId: process.env.S3_ACCESS_ID,
+    secretAccessKey: process.env.S3_SECRET_KEY,
+    region: process.env.S3_REGION,
+    apiVersion: process.env.S3_VERSION
   }
 }
