@@ -112,20 +112,6 @@ const Transfer = () => {
           pageSize={25}
         />
       </div>
-      {status !== 'connected' && account === rewardAdmin ? (
-        <Alert severity="warning">Please, connect your wallet to get started.</Alert>
-      ) : (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          disabled={disabled}
-          onClick={disabled ? undefined : handleSubmit}
-          fullWidth
-        >
-          {step === 'approve' ? 'Approve' : 'Transfer'}
-        </Button>
-      )}
     </div>
   )
 }
