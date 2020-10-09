@@ -183,7 +183,7 @@ const Reward = props => {
                   {`Total CLT to be rewarded today`}
                 </span>
                 <span className={classes.amountValue}>
-                  {`${todayReward.toLocaleString()} CLT`}
+                  {0}
                 </span>
               </div>
             ) : null}
