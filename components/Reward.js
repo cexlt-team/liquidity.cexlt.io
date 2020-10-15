@@ -86,8 +86,8 @@ const Reward = props => {
 
   useEffect(() => {
     const now = moment.utc()
-    const startDate = moment.utc([2020, 8, 19, 12])
-    const endDate = moment.utc([2020, 9, 9, 12])
+    const startDate = moment.utc([2020, 9, 16, 12])
+    const endDate = moment.utc([2020, 9, 26, 12])
     
     if (now < startDate) {
       setToday(`${startDate.format('MM-DD-YYYY')} 12:00 GMT+0`)
@@ -106,6 +106,7 @@ const Reward = props => {
       const totalBignumber = miningPool.toString()
       const total = ethers.utils.formatUnits(totalBignumber, 'ether')
       const period = endDate.diff(startDate, 'days')
+      console.log(period)
       const rewardPer = Number(total) / period
 
       setTodayReward(rewardPer)
@@ -152,14 +153,14 @@ const Reward = props => {
       <Alert severity="info">Claim all of your rewards from your staked UNI-V2</Alert>
       {status === 'connected' && (
         <Alert severity="info" className={classes.marginTop}>
-          Rewards paid until 12:00 GMT+0 in 10-09-2020. Your amount of CLT reward will be deducted by 1%
+          Rewards paid until 12:00 GMT+0 in 10-26-2020. Your amount of CLT reward will be deducted by 1%
         </Alert>
       )}
       <div>
         {status === 'connected' && (
           <div className={classes.dateNotice}>
             <div>
-              {`Reward payment date: ${moment.utc([2020, 9, 9, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}
+              {`Reward payment date: ${moment.utc([2020, 9, 26, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}
             </div>
             <div>
               {`Daily reward date: ${today}`}
@@ -183,7 +184,7 @@ const Reward = props => {
                   {`Total CLT to be rewarded today`}
                 </span>
                 <span className={classes.amountValue}>
-                  {0}
+                  {`${todayReward.toLocaleString()} CLT`}
                 </span>
               </div>
             ) : null}

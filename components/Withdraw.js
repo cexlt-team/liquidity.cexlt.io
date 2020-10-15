@@ -45,7 +45,7 @@ const Withdraw = () => {
   const classes = useStyles()
   const { account, status } = useWalletAugmented()
   const selectedTokenBalance = useBalanceOf('UNI_TOKEN')
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
   const [pending, setPending] = useState(false)
   const [withdrawTx, setWithdrawTx] = useState('')
   const [showWithdraw, setShowWithdraw] = useState(false)
@@ -78,12 +78,21 @@ const Withdraw = () => {
     setDisabled(false)
   }
 
+  useEffect(() => {
+    const now = moment.utc()
+    const endDate = moment.utc([2020, 9, 25, 12])
+
+    if (now > endDate) {
+      setDisable(false)
+    }
+  })
+
   return (
     <div>
       {pending && (
         <Loader />
       )}
-      <Alert severity="info">Stacked UNI-V2 can be withdrawn after {`${moment.utc([2020, 9, 8, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}</Alert>
+      <Alert severity="info">Stacked UNI-V2 can be withdrawn after {`${moment.utc([2020, 9, 25, 12]).format('MM-DD-YYYY hh:mm')} GMT+0`}</Alert>
       <Stats
         balanceUni={selectedTokenBalance}
         decimalsUni={18}

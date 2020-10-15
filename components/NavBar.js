@@ -43,7 +43,7 @@ const NavBar = props => {
         <a href="https://cexlt.io" target="_blank">
           <Logo mode={logoMode} />
         </a>
-        <a href="https://uniswap.info/pair/0x0f1b7d5e235098e9da4ae78199021d7938c77ae6" target="_blank" className={classes.homeLink}>
+        <a href="https://info.uniswap.org/pair/0x95a63caaa2f9a7556594ee20fa7a3ae07ef2791f" target="_blank" className={classes.homeLink}>
           Trade for Liquidity Pool
         </a>
       </div>

@@ -128,7 +128,7 @@ const Stake = () => {
 
   useEffect(() => {
     const now = moment.utc()
-    const endDate = moment.utc([2020, 9, 8, 12])
+    const endDate = moment.utc([2020, 9, 25, 12])
 
     if (now > endDate) {
       setInputDisabled(true)

@@ -25,7 +25,7 @@ const App = props => {
 
   useEffect(() => {
     const now = moment.utc()
-    const startDate = moment.utc([2020, 8, 18, 12])
+    const startDate = moment.utc([2020, 9, 16, 12])
 
     if (now >= startDate) {
       setOpen(true)

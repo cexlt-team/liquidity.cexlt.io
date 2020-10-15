@@ -13,7 +13,7 @@ class MyDocument extends Document {
           <meta property="og:locale" content="en_US" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="Cexlt Liquidity Program" />
-          <meta property="og:description" content="BSC Liquidity Rewards" />
+          <meta property="og:description" content="CLT Liquidity Rewards" />
           <meta property="og:url" content="https://liquidity.cexlt.io" />
           <meta property="og:site_name" content="liquidity.cexlt.io" />
           <meta property="og:image" content="https://liquidity.cexlt.io/assets/images/clt-icon.png" />

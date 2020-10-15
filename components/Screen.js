@@ -49,7 +49,7 @@ const Screen = () => {
   return (
     <div className={classes.root}>
       <div className={classes.text}>
-        OPEN at 09-18-2020 12:00 GMT+0
+        OPEN at 10-16-2020 12:00 GMT+0
       </div>
     </div>
   )
